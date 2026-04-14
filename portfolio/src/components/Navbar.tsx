@@ -14,6 +14,7 @@ type NavbarProps = {
 const Navbar = ({ onContactClick }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleNavClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
     if (!href.startsWith("#")) {
@@ -50,17 +51,28 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
     return () => window.removeEventListener("scroll", onScroll);
   }, [])
 
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   return (
     <>
       <div
-        className="absolute left-4 top-4 z-50 border-[3px] border-foreground bg-background px-4 py-2 font-mono text-lg font-bold tracking-tighter"
+        className="absolute left-2 top-2 z-50 border-[3px] border-foreground bg-background px-3 py-2 font-mono text-base font-bold tracking-tighter sm:left-4 sm:top-4 sm:px-4 sm:text-lg"
         style={{ boxShadow: "var(--brutal-shadow)" }}
       >
         {"<SHIENG/>"}
       </div>
 
       <nav
-        className={`nav-brutal transition-all duration-300 ${scrolled ? "top-2 py-2 px-4 bg-white" : "top-4 py-3 px-6 bg-white"
+        className={`nav-brutal left-auto right-2 -translate-x-0 sm:right-4 md:left-1/2 md:right-auto md:-translate-x-1/2 transition-all duration-300 ${scrolled ? "top-2 py-2 px-3 sm:px-4 bg-white" : "top-2 sm:top-4 py-2 sm:py-3 px-3 sm:px-6 bg-white"
           }`}
       >
         <div className="hidden md:flex gap-1">
@@ -86,6 +98,34 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
 
         <button
           type="button"
+          className="md:hidden inline-flex h-12 w-12 items-center justify-center border-[3px] border-foreground bg-background transition-transform duration-100"
+          style={{
+            boxShadow: isMobileMenuOpen ? "2px 2px 0 hsl(var(--foreground))" : "var(--brutal-shadow)",
+            transform: isMobileMenuOpen ? "translate(2px, 2px)" : "translate(0, 0)",
+          }}
+          aria-label="Toggle navigation menu"
+          aria-expanded={isMobileMenuOpen}
+          onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+        >
+          <span className="sr-only">Open menu</span>
+          <div className="relative flex h-7 w-7 items-center justify-center">
+            <span
+              className="absolute block h-1 w-6 bg-black transition-transform duration-150"
+              style={{ transform: isMobileMenuOpen ? "translateY(0) rotate(45deg)" : "translateY(-8px) rotate(0deg)" }}
+            />
+            <span
+              className="absolute block h-1 w-6 bg-black transition-opacity duration-150"
+              style={{ opacity: isMobileMenuOpen ? 0 : 1 }}
+            />
+            <span
+              className="absolute block h-1 w-6 bg-black transition-transform duration-150"
+              style={{ transform: isMobileMenuOpen ? "translateY(0) rotate(-45deg)" : "translateY(8px) rotate(0deg)" }}
+            />
+          </div>
+        </button>
+
+        <button
+          type="button"
           className="ml-4 hidden lg:inline-flex items-center justify-center rounded-full border-[3px] border-black bg-[#E8D22C] px-7 py-2 font-mono text-sm font-extrabold uppercase tracking-[0.12em] text-black transition-transform duration-100"
           style={{ boxShadow: "5px 5px 0 #000" }}
           onClick={onContactClick}
@@ -108,6 +148,37 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
         >
           CONTACT
         </button>
+
+        {isMobileMenuOpen ? (
+          <div className="absolute right-0 top-[calc(100%+10px)] w-56 md:hidden border-[3px] border-foreground bg-white p-3" style={{ boxShadow: "var(--brutal-shadow-lg)" }}>
+            <div className="flex flex-col gap-2">
+              {navItems.map((item) => (
+                <a
+                  key={`mobile-${item.href}`}
+                  href={item.href}
+                  className="border-[3px] border-transparent px-3 py-2 font-mono text-sm font-bold uppercase tracking-wider transition-colors duration-100 hover:border-foreground hover:bg-[hsl(var(--neon-green))]"
+                  onClick={(event) => {
+                    handleNavClick(event, item.href);
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  {item.label}
+                </a>
+              ))}
+              <button
+                type="button"
+                className="mt-1 border-[3px] border-black bg-[#E8D22C] px-4 py-2 font-mono text-sm font-extrabold uppercase tracking-[0.12em] text-black"
+                style={{ boxShadow: "5px 5px 0 #000" }}
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onContactClick();
+                }}
+              >
+                CONTACT
+              </button>
+            </div>
+          </div>
+        ) : null}
       </nav>
     </>
   )
