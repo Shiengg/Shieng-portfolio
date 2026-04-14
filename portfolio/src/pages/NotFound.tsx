@@ -67,7 +67,7 @@ const NotFound = () => {
             </div>
 
             <p className="font-mono text-xs md:text-sm uppercase mb-4">Trace ID: RDCTD-99X-VOID</p>
-            <p className="text-lg md:text-2xl leading-snug mb-6">
+            <p className="text-lg md:text-2xl font-mono leading-snug mb-6">
               We cannot find the page you are looking for. It may have been moved, renamed, or
               deleted. Use the options below to safely return to an active route.
             </p>

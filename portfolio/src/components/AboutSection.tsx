@@ -1,9 +1,28 @@
 const stats = [
-  { number: '1', label: 'Years Experience' },
-  { number: '5+', label: 'Projects Shipped' },
-  { number: 'HCM', label: 'BASE IN VIETNAM' },
-  { number: '∞', label: 'Coffee Consumed' },
+  { number: '1', label: 'Years Experience', color: 'neon-green' },
+  { number: '5+', label: 'Projects Shipped', color: 'neon-yellow' },
+  { number: 'HCM', label: 'BASE IN VIETNAM', color: 'neon-blue' },
+  { number: '∞', label: 'Coffee Consumed', color: 'neon-pink' },
 ];
+
+const statColorStyles = {
+  "neon-green": {
+    background: "hsl(var(--neon-green))",
+    foreground: "hsl(var(--neon-green-foreground))",
+  },
+  "neon-pink": {
+    background: "hsl(var(--neon-pink))",
+    foreground: "text-black",
+  },
+  "neon-blue": {
+    background: "hsl(var(--neon-blue))",
+    foreground: "hsl(var(--neon-blue-foreground))",
+  },
+  "neon-yellow": {
+    background: "hsl(var(--neon-yellow))",
+    foreground: "hsl(var(--neon-yellow-foreground))",
+  },
+} as const;
 
 const AboutSection = () => {
   return (
@@ -28,18 +47,18 @@ const AboutSection = () => {
         </div>
 
         {/* About content */}
-        <div className="grid md:grid-cols-12 gap-8">
+        <div className="grid md:grid-cols-12 gap-8 items-start">
           {/* Left column - photo placeholder */}
           <div className="md:col-span-5">
-            <div className="brutal-card p-0 aspect-[3/4] relative overflow-hidden group bg-neon-blue text-neon-blue-foreground">
+            <div className="brutal-card p-0 aspect-[4/5] relative overflow-hidden group bg-neon-blue text-neon-blue-foreground max-w-[460px]">
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-heading text-[200px] font-bold opacity-20 group-hover:opacity-40 transition-opacity select-none">
+                <span className="font-heading text-[160px] md:text-[180px] font-bold opacity-20 group-hover:opacity-40 transition-opacity select-none">
                   ???
                 </span>
               </div>
               {/* Decorative sticker */}
               <div
-                className="absolute top-4 right-4 brutal-border px-3 py-1 font-heading text-xs rotate-[12deg]"
+                className="absolute top-4 right-4 brutal-border px-3 py-1 font-heading text-xs rotate-[12deg] font-mono"
                 style={{
                   background: 'hsl(var(--neon-yellow))',
                   color: 'hsl(var(--neon-yellow-foreground))',
@@ -53,10 +72,10 @@ const AboutSection = () => {
           {/* Right column */}
           <div className="md:col-span-7 flex flex-col gap-8">
             <div className="brutal-card">
-              <p className="text-lg md:text-xl leading-relaxed">
+              <p className="text-lg md:text-xl leading-relaxed font-mono">
                 I'm a developer who believes the web should be{' '}
                 <span
-                  className="px-1 brutal-border inline-block font-bold"
+                  className="px-1 brutal-border inline-block font-bold rotate-[3deg]"
                   style={{
                     background: 'hsl(var(--neon-green))',
                     color: 'hsl(var(--neon-green-foreground))',
@@ -66,7 +85,7 @@ const AboutSection = () => {
                 </span>
                 ,{' '}
                 <span
-                  className="px-1 inline-block font-bold"
+                  className="px-1 inline-block font-bold rotate-[-2deg]"
                   style={{
                     background: 'hsl(var(--neon-pink))',
                     color: 'hsl(var(--neon-pink-foreground))',
@@ -77,7 +96,7 @@ const AboutSection = () => {
                 </span>
                 , and{' '}
                 <span
-                  className="px-1 brutal-border inline-block font-bold"
+                  className="px-1 brutal-border inline-block font-bold rotate-[5deg]"
                   style={{
                     background: 'hsl(var(--neon-blue))',
                     color: 'hsl(var(--neon-blue-foreground))',
@@ -87,17 +106,17 @@ const AboutSection = () => {
                 </span>
                 .
               </p>
-              <p className="text-lg md:text-xl leading-relaxed mt-4">
-                With 5+ years of experience, I turn complex problems into brutally simple solutions.
-                I specialize in building performant web applications that push creative boundaries
-                while maintaining accessibility and usability.
+              <p className="text-lg md:text-xl leading-relaxed mt-4 font-mono">
+                I turn complex problems into brutally simple solutions.
+                I'm focused on building performant web applications that push creative boundaries
+                while staying grounded in accessibility and usability.
               </p>
             </div>
 
-            <div className="brutal-card bg-lime-400 text-primary-foreground rotate-[1deg]">
-              <p className="font-mono text-lg leading-relaxed">
+            <div className="brutal-card bg-black text-primary-foreground rotate-[2deg]">
+              <p className="font-mono text-lg leading-relaxed text-white">
                 "Good design is obvious. Great design is transparent. <br />
-                <span className="text-neon-green">My design? It punches you in the face.</span>"
+                <span className="text-lime-400">My design? It punches you in the face.</span>"
               </p>
             </div>
 
@@ -107,12 +126,21 @@ const AboutSection = () => {
                 <div
                   key={stat.label}
                   className="brutal-card text-center distort-hover"
-                  style={{ transform: `rotate(${i % 2 === 0 ? -1 : 1}deg)` }}
+                  style={{ transform: `rotate(${i % 2 === 0 ? -2 : 2}deg)` }}
+                  onMouseEnter={(event) => {
+                    const palette = statColorStyles[stat.color];
+                    event.currentTarget.style.background = palette.background;
+                    event.currentTarget.style.color = palette.foreground;
+                  }}
+                  onMouseLeave={(event) => {
+                    event.currentTarget.style.background = "";
+                    event.currentTarget.style.color = "";
+                  }}
                 >
                   <div className="font-heading text-4xl md:text-5xl font-bold text-neon-blue">
                     {stat.number}
                   </div>
-                  <div className="font-heading text-xs mt-2 tracking-wider">{stat.label}</div>
+                  <div className="font-bold text-xs mt-2 tracking-wider font-mono">{stat.label}</div>
                 </div>
               ))}
             </div>

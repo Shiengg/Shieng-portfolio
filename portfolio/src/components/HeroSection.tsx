@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 
 const HeroSection = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const marqueeItems = ['REACT', 'TYPESCRIPT', 'NODE.JS', 'NEXT.JS', 'TAILWIND', 'POSTGRESQL'];
+  const marqueeSequence = [...marqueeItems, ...marqueeItems];
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -28,7 +30,7 @@ const HeroSection = () => {
         className="absolute top-20 right-10 w-32 h-32 brutal-border animate-float hidden lg:block"
         style={{
           background: 'hsl(var(--neon-yellow))',
-          transform: `translate(${offsetX * 2}px, ${offsetY * 2}px) rotate(12deg)`,
+          transform: `translate(${offsetX * 20}px, ${offsetY * 20}px) rotate(12deg)`,
         }}
       />
       <div
@@ -36,14 +38,14 @@ const HeroSection = () => {
         style={{
           background: 'hsl(var(--neon-pink))',
           animationDelay: '1s',
-          transform: `translate(${-offsetX}px, ${-offsetY}px) rotate(-8deg)`,
+          transform: `translate(${-offsetX * 10}px, ${-offsetY * 10}px) rotate(-8deg)`,
         }}
       />
       <div
         className="absolute top-1/3 right-1/4 w-16 h-16 brutal-border hidden lg:block"
         style={{
           background: 'hsl(var(--neon-blue))',
-          transform: `translate(${offsetX * 3}px, ${offsetY * 3}px) rotate(45deg)`,
+          transform: `translate(${offsetX * 30}px, ${offsetY * 30}px) rotate(45deg)`,
         }}
       />
 
@@ -52,8 +54,8 @@ const HeroSection = () => {
         <div className="max-w-5xl">
           {/* Status badge */}
           <div className="flex items-center gap-3 mb-8">
-            <div className="sticker sticker-green rotate-[-1deg]">● AVAILABLE FOR WORK</div>
-            <div className="sticker sticker-blue rotate-[2deg]">FULL-STACK DEV</div>
+            <div className="sticker sticker-green rotate-[1deg]">● AVAILABLE FOR WORK</div>
+            <div className="sticker sticker-blue rotate-[-6deg]">FULL-STACK DEV</div>
           </div>
 
           {/* Main heading with intro + title */}
@@ -77,7 +79,7 @@ const HeroSection = () => {
             <span className="block text-3xl md:text-5xl lg:text-6xl -mt-1 md:-mt-3 uppercase tracking-tight">
               SOFTWARE
               <span
-                className="inline-block brutal-border px-3 md:px-4 py-1 ml-2 md:ml-3 rotate-[-2deg] translate-y-[-2px]"
+                className="inline-block brutal-border px-3 md:px-4 py-1 ml-2 md:ml-3 rotate-[-6deg] translate-y-[-2px]"
                 style={{
                   background: 'hsl(var(--neon-pink))',
                   color: 'hsl(var(--neon-pink-foreground))',
@@ -105,8 +107,8 @@ const HeroSection = () => {
             <a href="#projects" className="brutal-btn text-lg">
               VIEW MY WORK →
             </a>
-            <a href="#contact" className="brutal-btn-pink text-lg brutal-border">
-              LET'S TALK
+            <a href="/resume" className="brutal-btn-yellow text-lg brutal-border">
+              VIEW RESUME
             </a>
           </div>
         </div>
@@ -117,31 +119,16 @@ const HeroSection = () => {
         className="absolute bottom-0 left-0 right-0 brutal-border-thick border-l-0 border-r-0 py-3 overflow-hidden"
         style={{ background: 'hsl(var(--foreground))', color: 'hsl(var(--primary-foreground))' }}
       >
-        <div className="marquee whitespace-nowrap font-mono text-xl font-bold tracking-widest">
-          <span className="mx-8">REACT</span>
-          <span className="mx-8">★</span>
-          <span className="mx-8">TYPESCRIPT</span>
-          <span className="mx-8">★</span>
-          <span className="mx-8">NODE.JS</span>
-          <span className="mx-8">★</span>
-          <span className="mx-8">NEXT.JS</span>
-          <span className="mx-8">★</span>
-          <span className="mx-8">TAILWIND</span>
-          <span className="mx-8">★</span>
-          <span className="mx-8">POSTGRESQL</span>
-          <span className="mx-8">★</span>
-          <span className="mx-8">REACT</span>
-          <span className="mx-8">★</span>
-          <span className="mx-8">TYPESCRIPT</span>
-          <span className="mx-8">★</span>
-          <span className="mx-8">NODE.JS</span>
-          <span className="mx-8">★</span>
-          <span className="mx-8">NEXT.JS</span>
-          <span className="mx-8">★</span>
-          <span className="mx-8">TAILWIND</span>
-          <span className="mx-8">★</span>
-          <span className="mx-8">POSTGRESQL</span>
-          <span className="mx-8">★</span>
+        <div className="marquee font-mono text-xl font-bold tracking-widest">
+          {[0, 1].map((copy) => (
+            <div key={copy} className="marquee-content" aria-hidden={copy === 1}>
+              {marqueeSequence.map((item, index) => (
+                <span key={`${copy}-${item}-${index}`} className="marquee-item">
+                  {item}
+                </span>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
     </section>

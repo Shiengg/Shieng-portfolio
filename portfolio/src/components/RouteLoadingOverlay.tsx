@@ -21,8 +21,11 @@ const RouteLoadingOverlay = () => {
 
     if (location.key !== previousLocationKey.current) {
       previousLocationKey.current = location.key;
-      setIsRouteTransitioning(true);
-      setProgress(8);
+      const startTransitionTimer = window.setTimeout(() => {
+        setIsRouteTransitioning(true);
+        setProgress(8);
+      }, 0);
+      return () => window.clearTimeout(startTransitionTimer);
     }
   }, [location.key]);
 
@@ -33,7 +36,7 @@ const RouteLoadingOverlay = () => {
       if (showDelayTimerRef.current === null && !isVisible) {
         showDelayTimerRef.current = window.setTimeout(() => {
           setIsVisible(true);
-        }, 200);
+        }, 100);
       }
       return;
     }
@@ -44,18 +47,30 @@ const RouteLoadingOverlay = () => {
     }
 
     if (!isVisible) {
-      setIsRouteTransitioning(false);
-      setProgress(0);
-      return;
+      const resetTransitionTimer = window.setTimeout(() => {
+        setIsRouteTransitioning(false);
+        setProgress(0);
+      }, 0);
+      return () => window.clearTimeout(resetTransitionTimer);
     }
 
-    setProgress(100);
+    const completeProgressTimer = window.setTimeout(() => {
+      setProgress(100);
+    }, 0);
     hideTimerRef.current = window.setTimeout(() => {
       setIsVisible(false);
       setIsRouteTransitioning(false);
       setProgress(0);
       hideTimerRef.current = null;
     }, 180);
+
+    return () => {
+      window.clearTimeout(completeProgressTimer);
+      if (hideTimerRef.current !== null) {
+        window.clearTimeout(hideTimerRef.current);
+        hideTimerRef.current = null;
+      }
+    };
   }, [isFetching, isRouteTransitioning, isVisible]);
 
   useEffect(() => {
