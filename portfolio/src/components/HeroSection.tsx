@@ -56,8 +56,17 @@ const HeroSection = () => {
             <div className="sticker sticker-blue rotate-[2deg]">FULL-STACK DEV</div>
           </div>
 
-          {/* Main heading with glitch */}
+          {/* Main heading with intro + title */}
           <h1 className="font-heading font-bold leading-[0.9] mb-6">
+            <span
+              className="inline-block font-mono text-4xl md:text-6xl lg:text-[8rem] uppercase tracking-[0.12em] brutal-border px-4 py-2 mb-3 md:mb-4"
+              style={{
+                background: 'hsl(var(--background))',
+                transform: `translate(${-offsetX * 0.2}px, ${-offsetY * 0.2}px) rotate(-1deg)`,
+              }}
+            >
+              HELLO I AM
+            </span>
             <span
               className="block text-7xl md:text-[9rem] lg:text-[12rem] glitch-text"
               data-text="SHIENG"
@@ -65,17 +74,74 @@ const HeroSection = () => {
             >
               SHIENG
             </span>
-            <span
-              className="block text-5xl md:text-7xl lg:text-[8rem] -mt-2 md:-mt-6"
-              style={{
-                WebkitTextStroke: '3px hsl(var(--foreground))',
-                color: 'transparent',
-                transform: `translate(${-offsetX * 0.3}px, ${-offsetY * 0.3}px)`,
-              }}
-            >
-              MORGAN
+            <span className="block text-3xl md:text-5xl lg:text-6xl -mt-1 md:-mt-3 uppercase tracking-tight">
+              SOFTWARE
+              <span
+                className="inline-block brutal-border px-3 md:px-4 py-1 ml-2 md:ml-3 rotate-[-2deg] translate-y-[-2px]"
+                style={{
+                  background: 'hsl(var(--neon-pink))',
+                  color: 'hsl(var(--neon-pink-foreground))',
+                }}
+              >
+                ENGINEER
+              </span>
             </span>
           </h1>
+
+          {/* Tagline */}
+          <div
+            className="brutal-border brutal-shadow-lg inline-block p-4 md:p-6 mb-8 max-w-xl"
+            style={{ background: 'hsl(var(--neon-green))' }}
+          >
+            <p className="font-mono text-lg md:text-xl font-bold text-foreground leading-tight">
+              I BUILD THINGS THAT LIVE ON THE INTERNET.
+              <br />
+              FULL-STACK. PIXEL-PERFECT. NO COMPROMISES.
+            </p>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap gap-4">
+            <a href="#projects" className="brutal-btn text-lg">
+              VIEW MY WORK →
+            </a>
+            <a href="#contact" className="brutal-btn-pink text-lg brutal-border">
+              LET'S TALK
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Marquee banner */}
+      <div
+        className="absolute bottom-0 left-0 right-0 brutal-border-thick border-l-0 border-r-0 py-3 overflow-hidden"
+        style={{ background: 'hsl(var(--foreground))', color: 'hsl(var(--primary-foreground))' }}
+      >
+        <div className="marquee whitespace-nowrap font-mono text-xl font-bold tracking-widest">
+          <span className="mx-8">REACT</span>
+          <span className="mx-8">★</span>
+          <span className="mx-8">TYPESCRIPT</span>
+          <span className="mx-8">★</span>
+          <span className="mx-8">NODE.JS</span>
+          <span className="mx-8">★</span>
+          <span className="mx-8">NEXT.JS</span>
+          <span className="mx-8">★</span>
+          <span className="mx-8">TAILWIND</span>
+          <span className="mx-8">★</span>
+          <span className="mx-8">POSTGRESQL</span>
+          <span className="mx-8">★</span>
+          <span className="mx-8">REACT</span>
+          <span className="mx-8">★</span>
+          <span className="mx-8">TYPESCRIPT</span>
+          <span className="mx-8">★</span>
+          <span className="mx-8">NODE.JS</span>
+          <span className="mx-8">★</span>
+          <span className="mx-8">NEXT.JS</span>
+          <span className="mx-8">★</span>
+          <span className="mx-8">TAILWIND</span>
+          <span className="mx-8">★</span>
+          <span className="mx-8">POSTGRESQL</span>
+          <span className="mx-8">★</span>
         </div>
       </div>
     </section>
