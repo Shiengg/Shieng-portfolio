@@ -20,7 +20,7 @@ const Navbar = () => {
     return (
         <nav
             className={`nav-brutal transition-all duration-300 ${
-                scrolled ? "top-2 py-2 px-4" : "top-4 py-3 px-6"
+                scrolled ? "top-2 py-2 px-4 bg-white" : "top-4 py-3 px-6 bg-white"
             }`}
         >
             <a href="#" className="font-mono font-bold text-lg tracking-tighter mr-4">
