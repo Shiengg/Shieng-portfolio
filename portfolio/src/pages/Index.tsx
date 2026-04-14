@@ -1,9 +1,11 @@
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+
 const Index = () => {
     return (
-        <div>
-            <h1 className="text-3xl text-red-500 font-bold underline">
-                Index
-            </h1>
+        <div className="min-h-screen bg-background text-foreground">
+            <Navbar />
+            <HeroSection />
         </div>
     )
 }
