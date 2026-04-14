@@ -54,9 +54,8 @@ const ProjectsSection = () => {
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Lable */}
         <div className="flex items-center gap-4 mb-16">
-          <div className="sticker sticker-pink rotate-[2deg] text-lg">02</div>
           <h2 className="text-5xl md:text-7xl font-heading font-bold">WORK</h2>
-          <div className="flex-1 h-[4px] bg-foreground hidden md:block" />
+          <div className="flex-1 h-[4px] bg-black hidden md:block" />
         </div>
 
         {/* Projects Grid */}
