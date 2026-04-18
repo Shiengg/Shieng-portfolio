@@ -23,6 +23,7 @@ const initialFormData: FormData = {
   message: "",
 };
 const AUTO_CLOSE_MS = 5000;
+const CONTACT_EMAIL = "nhattanwork2004@gmail.com";
 
 const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -113,6 +114,10 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
       setIsSubmitted(false);
       return;
     }
+
+    const subject = encodeURIComponent("Portfolio contact");
+    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`);
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
 
     setIsSubmitted(true);
     setErrors({});
